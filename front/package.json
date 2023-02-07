@@ -1,7 +1,7 @@
 {
   "name": "hot-takes",
   "version": "1.0.0",
-  "description": "",
+  "description": "## Installation ##",
   "main": "index.js",
   "scripts": {
     "start": "run-script-os",
@@ -12,8 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "concurrently": "^5.2.0",
-    "http-server": "^0.11.1",
-    "live-server": "^1.2.1",
-    "run-script-os": "^1.0.7"
+    "http-server": "^14.1.1",
+    "live-server": "^1.1.0"
+  },
+  "keywords": [],
+  "devDependencies": {
+    "run-script-os": "^1.1.6"
   }
 }

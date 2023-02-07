@@ -4,15 +4,8 @@ const http = require('http');
 const app = require('./app');
 
 const mongoose = require('mongoose');
-const mongoDB = require('mongoDB');
 
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-
-// Connexion à Mongoose
-const db = mongoose.connection;
-db.on('error', (error) => console.error(error));
-db.once('open', () => console.log('Connected to Mongoose'));
 
 
 // Fonction pour normaliser le port

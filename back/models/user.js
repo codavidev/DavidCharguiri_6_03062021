@@ -13,24 +13,25 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-// utilisé pour hasher le mot de passe avant de sauvegarder l'utilisateur dans la base de données
-userSchema.pre('save', function(next) {
-    const user = this;
-    // si le mot de passe n'a pas été modifié, passer à la prochaine étape
-    if (!user.isModified('password')) {
-        return next();
-    }
-
-    // hasher le mot de passe avec bcrypt
-    bcrypt.hash(user.password, 10, (err, hash) => {
-        if (err) {
-            return next(err);
-        }
-        user.password = hash;
+// Hashage du mot de passe avant l'enregistrement de l'utilisateur
+userSchema.pre('save', async function (next) {
+    try {
+        const salt = await bcrypt.genSalt();
+        this.password = await bcrypt.hash(this.password, salt);
         next();
-    });
+    } catch (error) {
+        next(error);
+    }
 });
+
+// Fonction pour vérifier si le mot de passe entré correspond à celui stocké
+userSchema.methods.isValidPassword = async function (password) {
+    try {
+        return await bcrypt.compare(password, this.password);
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
-
