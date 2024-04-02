@@ -6,8 +6,6 @@ const app = require('./app');
 const mongoose = require('mongoose');
 
 
-
-
 // Fonction pour normaliser le port
 const normalizePort = val => {
     const port = parseInt(val, 10);
@@ -24,6 +22,7 @@ const normalizePort = val => {
 // Utilisation du port spécifié ou 3000 par défaut
 const port = normalizePort(process.env.PORT || '3000');
 
+app.set('port', port);
 // Gestion des erreurs lors de l'écoute sur le port
 const errorHandler = error => {
     if (error.syscall !== 'listen') {

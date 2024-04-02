@@ -1,5 +1,7 @@
 *.env
 node_modules/
-.DS_Store
+back/images/*
+back/.DS_Store
+front/.DS_Store
 .vscode
 

@@ -3,11 +3,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const helmet = require('helmet');
-const authUser = require('./routes/auth');
-const routerUser = require('./routes/user.routes');
 
+const path = require('path');
+
+const auth = require('./middleware/auth');
+const userRoutes = require('./routes/userRoutes');
+const sauceRoutes = require('./routes/sauceRoutes');
 
 const db = require('./config/db.config');
+
 
 const app = express();
 
@@ -15,13 +19,28 @@ const app = express();
 app.use(express.json());
 
 // CORS 
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CLIENT_URL
+};
 
-// Headers
-app.use(helmet());
+app.use(cors(corsOptions));
+
+// Configurer Helmet avec CSP
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"],
+  }
+}));
+
+
 
 // Routes
-app.use("/api/auth", authUser);
+app.use('/api/auth', userRoutes);
+app.use('/api/sauces', sauceRoutes);
 
-app.listen(3000, () => console.log("Server started"));
+// Middleware pour servir les images
+app.use('/images', express.static(path.join(__dirname, 'images')));
+
+
+// app.listen(3000, () => console.log("Server started"));
 module.exports = app;
