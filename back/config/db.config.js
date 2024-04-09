@@ -15,7 +15,7 @@ mongoose.connect(process.env.DB_URI, {
     {
         console.log(err);
     }else{
-        console.log(`MongoDB Connected: ${mongoose.connection.host}`);
+        console.log(`MongoDB Connected`);
     }
 });
 

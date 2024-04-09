@@ -9,6 +9,7 @@ const path = require('path');
 const auth = require('./middleware/auth');
 const userRoutes = require('./routes/userRoutes');
 const sauceRoutes = require('./routes/sauceRoutes');
+const likeRoutes = require('./routes/likeRoutes');
 
 const db = require('./config/db.config');
 
@@ -37,6 +38,7 @@ app.use(helmet.contentSecurityPolicy({
 // Routes
 app.use('/api/auth', userRoutes);
 app.use('/api/sauces', sauceRoutes);
+app.use('/api/sauces/', likeRoutes);
 
 // Middleware pour servir les images
 app.use('/images', express.static(path.join(__dirname, 'images')));
