@@ -1,7 +1,9 @@
 *.env
 node_modules/
 images/*
+# Ignorer les fichiers système macOS
 .DS_Store
 ../.DS_Store
+../front/.DS_Store
+# Ignorer les fichiers de configuration de Visual Studio Code
 ../.vscode
-
